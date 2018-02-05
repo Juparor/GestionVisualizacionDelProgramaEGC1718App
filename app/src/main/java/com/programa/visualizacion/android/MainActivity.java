@@ -13,7 +13,9 @@ import android.widget.TextView;
 import java.io.InputStream;
 import java.util.List;
 
+import static com.programa.visualizacion.android.ExcelImporter.importExcelDataFileOne;
 import static com.programa.visualizacion.android.ExcelImporter.importExcelDataFileOneSchedule;
+import static com.programa.visualizacion.android.ExcelImporter.importExcelDataFileTwo;
 import static com.programa.visualizacion.android.ExcelImporter.importExcelDataFileTwoSchedule;
 
 public class MainActivity extends AppCompatActivity {
@@ -32,15 +34,22 @@ public class MainActivity extends AppCompatActivity {
         AssetManager assetManager = getAssets();
         try{
             InputStream programme1 = assetManager.open("programme1.xlsx");
-            List<String> list1 = importExcelDataFileOneSchedule(programme1);
+            List<String> list1 = importExcelDataFileOne(programme1);
 
             InputStream programme2 = assetManager.open("programme2.xlsx");
-            List<String> list2 = importExcelDataFileTwoSchedule(programme2);
+            List<String> list2 = importExcelDataFileTwo(programme2);
+
+            InputStream programme3 = assetManager.open("programme1.xlsx");
+            List<String> list3 = importExcelDataFileOneSchedule(programme3);
+
+            InputStream programme4 = assetManager.open("programme2.xlsx");
+            List<String> list4 = importExcelDataFileTwoSchedule(programme4);
 
             DBController dbController = new DBController(this);
             SQLiteDatabase database = dbController.getReadableDatabase();
 
-            DBController.insertRows(list1, list2, database);
+
+            DBController.insertRows(list1, list2, list3, list4, database);
 
         } catch(Exception e){
             Log.e("MainActivity: ", e.getMessage());

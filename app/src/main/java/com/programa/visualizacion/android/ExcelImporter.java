@@ -35,7 +35,7 @@ public class ExcelImporter {
             for (int row = 1; row < rowsLimit; row++) {
                 Row actualRow = sheet.getRow(row);
                 int numberOfColumns = actualRow.getPhysicalNumberOfCells();
-                int columnsLimit = numberOfColumns - 2;
+                int columnsLimit = numberOfColumns - 1;
 
                 String lineOfRow = "";
 
@@ -113,40 +113,42 @@ public class ExcelImporter {
             for (int row = 1; row < rowsLimit; row++) {
                 Row actualRow = mondaySheet.getRow(row);
                 int numberOfColumns = actualRow.getPhysicalNumberOfCells();
-                int columnsLimit = numberOfColumns - 4;
+                int columnsLimit = numberOfColumns;
 
                 String lineOfRow = "";
 
-                for (int column = 3; column < columnsLimit; column++) {
+                for (int column = 0; column < columnsLimit; column++) {
                     String value = getCellAsString(actualRow, column, formulaEvaluator);
 
                     if (column != columnsLimit - 1) {
                         lineOfRow += value + " -- ";
                     } else {
                         lineOfRow += value;
+                        lineOfRow += "--" + mondaySheet.getSheetName();
                     }
                 }
                 listOfRows.add(lineOfRow);
             }
 
-            XSSFSheet tuesdaySheet = workbook.getSheetAt(3);
+            XSSFSheet tuesdaySheet = workbook.getSheetAt(1);
             numberOfRows = tuesdaySheet.getPhysicalNumberOfRows();
             rowsLimit = numberOfRows;
 
             for (int row = 1; row < rowsLimit; row++) {
                 Row actualRow = tuesdaySheet.getRow(row);
                 int numberOfColumns = actualRow.getPhysicalNumberOfCells();
-                int columnsLimit = numberOfColumns - 4;
+                int columnsLimit = numberOfColumns;
 
                 String lineOfRow = "";
 
-                for (int column = 3; column < columnsLimit; column++) {
+                for (int column = 0; column < columnsLimit; column++) {
                     String value = getCellAsString(actualRow, column, formulaEvaluator);
 
                     if (column != columnsLimit - 1) {
                         lineOfRow += value + " -- ";
                     } else {
                         lineOfRow += value;
+                        lineOfRow += "--" + tuesdaySheet.getSheetName();
                     }
                 }
                 listOfRows.add(lineOfRow);
@@ -167,25 +169,76 @@ public class ExcelImporter {
 
         try {
             XSSFWorkbook workbook = new XSSFWorkbook(inputStream);
-            XSSFSheet mondaySheet = workbook.getSheetAt(0);
-            int numberOfRows = mondaySheet.getPhysicalNumberOfRows();
-            int rowsLimit = numberOfRows;
+            XSSFSheet wednesdaySheet = workbook.getSheetAt(0);
+            int numberOfRows = wednesdaySheet.getPhysicalNumberOfRows();
+            int rowsLimit = numberOfRows - 1;
             FormulaEvaluator formulaEvaluator = workbook.getCreationHelper().createFormulaEvaluator();
 
             for (int row = 1; row < rowsLimit; row++) {
-                Row actualRow = mondaySheet.getRow(row);
+                Row actualRow = wednesdaySheet.getRow(row);
                 int numberOfColumns = actualRow.getPhysicalNumberOfCells();
-                int columnsLimit = numberOfColumns - 4;
+                int columnsLimit = numberOfColumns;
 
                 String lineOfRow = "";
 
-                for (int column = 3; column < columnsLimit; column++) {
+                for (int column = 0; column < columnsLimit; column++) {
                     String value = getCellAsString(actualRow, column, formulaEvaluator);
 
                     if (column != columnsLimit - 1) {
                         lineOfRow += value + " -- ";
                     } else {
                         lineOfRow += value;
+                        lineOfRow += "--" + wednesdaySheet.getSheetName();
+                    }
+                }
+                listOfRows.add(lineOfRow);
+            }
+
+            XSSFSheet thursdaySheet = workbook.getSheetAt(1);
+            numberOfRows = thursdaySheet.getPhysicalNumberOfRows();
+            rowsLimit = numberOfRows;
+            formulaEvaluator = workbook.getCreationHelper().createFormulaEvaluator();
+
+            for (int row = 1; row < rowsLimit; row++) {
+                Row actualRow = thursdaySheet.getRow(row);
+                int numberOfColumns = actualRow.getPhysicalNumberOfCells();
+                int columnsLimit = numberOfColumns;
+
+                String lineOfRow = "";
+
+                for (int column = 0; column < columnsLimit; column++) {
+                    String value = getCellAsString(actualRow, column, formulaEvaluator);
+
+                    if (column != columnsLimit - 1) {
+                        lineOfRow += value + " -- ";
+                    } else {
+                        lineOfRow += value;
+                        lineOfRow += "--" + thursdaySheet.getSheetName();
+                    }
+                }
+                listOfRows.add(lineOfRow);
+            }
+
+            XSSFSheet fridaySheet = workbook.getSheetAt(2);
+            numberOfRows = fridaySheet.getPhysicalNumberOfRows();
+            rowsLimit = numberOfRows;
+            formulaEvaluator = workbook.getCreationHelper().createFormulaEvaluator();
+
+            for (int row = 1; row < rowsLimit; row++) {
+                Row actualRow = fridaySheet.getRow(row);
+                int numberOfColumns = actualRow.getPhysicalNumberOfCells();
+                int columnsLimit = numberOfColumns;
+
+                String lineOfRow = "";
+
+                for (int column = 0; column < columnsLimit; column++) {
+                    String value = getCellAsString(actualRow, column, formulaEvaluator);
+
+                    if (column != columnsLimit - 1) {
+                        lineOfRow += value + " -- ";
+                    } else {
+                        lineOfRow += value;
+                        lineOfRow += "--" + fridaySheet.getSheetName();
                     }
                 }
                 listOfRows.add(lineOfRow);

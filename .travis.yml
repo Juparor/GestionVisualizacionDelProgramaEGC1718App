@@ -1,6 +1,14 @@
 language: android
 sudo: required
-jdk: oraclejdk8
+
+before_install:
+ 
+     - openssl aes-256-cbc -K $encrypted_0134938ffec9_key -iv $encrypted_0134938ffec9_iv -in keystore.jks.enc -out keystore.jks -d
+     - chmod +x gradlew
+     - ./gradlew dependencies || true
+
+jdk: 
+ - oraclejdk8
 
 before_cache:
  -rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
@@ -34,11 +42,7 @@ cache:
          - android-sdk-license-.+
          - google-gdk-license-.+
      
- before_install:
  
-     - openssl aes-256-cbc -K $encrypted_0134938ffec9_key -iv $encrypted_0134938ffec9_iv -in keystore.jks.enc -out keystore.jks -d
-     - chmod +x gradlew
-     - ./gradlew dependencies || true
  
  
  before_script:

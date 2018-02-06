@@ -43,7 +43,7 @@ public class ExcelImporter {
                     String value = getCellAsString(actualRow, column, formulaEvaluator);
 
                     if (column != columnsLimit - 1) {
-                        lineOfRow += value + " -- ";
+                        lineOfRow += value + "--";
                     } else {
                         lineOfRow += value;
                     }
@@ -82,7 +82,7 @@ public class ExcelImporter {
                     String value = getCellAsString(actualRow, column, formulaEvaluator);
 
                     if (column != columnsLimit - 1) {
-                        lineOfRow += value + " -- ";
+                        lineOfRow += value + "--";
                     } else {
                         lineOfRow += value;
                     }
@@ -121,7 +121,7 @@ public class ExcelImporter {
                     String value = getCellAsString(actualRow, column, formulaEvaluator);
 
                     if (column != columnsLimit - 1) {
-                        lineOfRow += value + " -- ";
+                        lineOfRow += value + "--";
                     } else {
                         lineOfRow += value;
                         lineOfRow += "--" + mondaySheet.getSheetName();
@@ -145,7 +145,7 @@ public class ExcelImporter {
                     String value = getCellAsString(actualRow, column, formulaEvaluator);
 
                     if (column != columnsLimit - 1) {
-                        lineOfRow += value + " -- ";
+                        lineOfRow += value + "--";
                     } else {
                         lineOfRow += value;
                         lineOfRow += "--" + tuesdaySheet.getSheetName();
@@ -185,7 +185,7 @@ public class ExcelImporter {
                     String value = getCellAsString(actualRow, column, formulaEvaluator);
 
                     if (column != columnsLimit - 1) {
-                        lineOfRow += value + " -- ";
+                        lineOfRow += value + "--";
                     } else {
                         lineOfRow += value;
                         lineOfRow += "--" + wednesdaySheet.getSheetName();
@@ -210,7 +210,7 @@ public class ExcelImporter {
                     String value = getCellAsString(actualRow, column, formulaEvaluator);
 
                     if (column != columnsLimit - 1) {
-                        lineOfRow += value + " -- ";
+                        lineOfRow += value + "--";
                     } else {
                         lineOfRow += value;
                         lineOfRow += "--" + thursdaySheet.getSheetName();
@@ -235,7 +235,7 @@ public class ExcelImporter {
                     String value = getCellAsString(actualRow, column, formulaEvaluator);
 
                     if (column != columnsLimit - 1) {
-                        lineOfRow += value + " -- ";
+                        lineOfRow += value + "--";
                     } else {
                         lineOfRow += value;
                         lineOfRow += "--" + fridaySheet.getSheetName();

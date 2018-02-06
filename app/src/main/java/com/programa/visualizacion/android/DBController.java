@@ -113,9 +113,9 @@ public class DBController extends SQLiteOpenHelper {
 
             if (part4.equals("Monday")){
 
-                date = "09/25/2017";
+                date = "25/09/2017";
             } else {
-                date = "09/26/2017";
+                date = "26/09/2017";
             }
 
             if (!part1.contains("(")) {
@@ -129,10 +129,14 @@ public class DBController extends SQLiteOpenHelper {
 
             } else {
 
+                part1 = part1.replaceAll("[()]","");
+                part2 = part2.replaceAll("[()]","");
+                part3 = part3.replaceAll("[()]","");
+
                 sqLiteDatabase.execSQL("INSERT INTO PROGRAMA (DIA, FECHA, SESSIONCODE, HORA_INICIO, HORA_FIN, TITULO) VALUES ("
                         + "'" + part4 + "' , "
                         + "'" + date + "' , "
-                        + "'" + part1.replaceAll("()", "") + "' , "
+                        + "'" + part1 + "' , "
                         + "'" + part0.split("-")[0] + "' , "
                         + "'" + part0.split("-")[1] + "' , "
                         + "'" + "" + "');");
@@ -140,7 +144,7 @@ public class DBController extends SQLiteOpenHelper {
                 sqLiteDatabase.execSQL("INSERT INTO PROGRAMA (DIA, FECHA, SESSIONCODE, HORA_INICIO, HORA_FIN, TITULO) VALUES ("
                         + "'" + part4 + "' , "
                         + "'" + date + "' , "
-                        + "'" + part2.replaceAll("()", "") + "' , "
+                        + "'" + part2 + "' , "
                         + "'" + part0.split("-")[0] + "' , "
                         + "'" + part0.split("-")[1] + "' , "
                         + "'" + "" + "');");
@@ -148,7 +152,7 @@ public class DBController extends SQLiteOpenHelper {
                 sqLiteDatabase.execSQL("INSERT INTO PROGRAMA (DIA, FECHA, SESSIONCODE, HORA_INICIO, HORA_FIN, TITULO) VALUES ("
                         + "'" + part4 + "' , "
                         + "'" + date + "' , "
-                        + "'" + part3.replaceAll("()", "") + "' , "
+                        + "'" + part3 + "' , "
                         + "'" + part0.split("-")[0] + "' , "
                         + "'" + part0.split("-")[1] + "' , "
                         + "'" + "" + "');");
@@ -171,11 +175,12 @@ public class DBController extends SQLiteOpenHelper {
             counter = 0;
 
 
-            if (part4.equals("Monday")){
-
-                date = "09/25/2017";
+            if (part3.equals("Wednesday")){
+                date = "27/09/2017";
+            } else if (part3.equals("Thursday")){
+                date = "28/09/2017";
             } else {
-                date = "09/26/2017";
+                date = "29/09/2017";
             }
 
             if (!part1.contains("(")) {
@@ -189,10 +194,14 @@ public class DBController extends SQLiteOpenHelper {
 
             } else {
 
+                part1 = part1.replaceAll("[()]","");
+                part2 = part2.replaceAll("[()]","");
+                part3 = part3.replaceAll("[()]","");
+
                 sqLiteDatabase.execSQL("INSERT INTO PROGRAMA (DIA, FECHA, SESSIONCODE, HORA_INICIO, HORA_FIN, TITULO) VALUES ("
                         + "'" + part4 + "' , "
                         + "'" + date + "' , "
-                        + "'" + part1.replaceAll("()", "") + "' , "
+                        + "'" + part1 + "' , "
                         + "'" + part0.split("-")[0] + "' , "
                         + "'" + part0.split("-")[1] + "' , "
                         + "'" + "" + "');");
@@ -200,7 +209,7 @@ public class DBController extends SQLiteOpenHelper {
                 sqLiteDatabase.execSQL("INSERT INTO PROGRAMA (DIA, FECHA, SESSIONCODE, HORA_INICIO, HORA_FIN, TITULO) VALUES ("
                         + "'" + part4 + "' , "
                         + "'" + date + "' , "
-                        + "'" + part2.replaceAll("()", "") + "' , "
+                        + "'" + part2 + "' , "
                         + "'" + part0.split("-")[0] + "' , "
                         + "'" + part0.split("-")[1] + "' , "
                         + "'" + "" + "');");
@@ -208,7 +217,7 @@ public class DBController extends SQLiteOpenHelper {
                 sqLiteDatabase.execSQL("INSERT INTO PROGRAMA (DIA, FECHA, SESSIONCODE, HORA_INICIO, HORA_FIN, TITULO) VALUES ("
                         + "'" + part4 + "' , "
                         + "'" + date + "' , "
-                        + "'" + part3.replaceAll("()", "") + "' , "
+                        + "'" + part3 + "' , "
                         + "'" + part0.split("-")[0] + "' , "
                         + "'" + part0.split("-")[1] + "' , "
                         + "'" + "" + "');");

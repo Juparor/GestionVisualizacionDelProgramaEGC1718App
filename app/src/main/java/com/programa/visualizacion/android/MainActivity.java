@@ -29,9 +29,13 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
 
-    private TextView fecha;
-    private Button botonCalendario;
-    private ListView listView;
+    private Button calendarButton;
+
+    public static List<Event> mondayEvents = new ArrayList<>();
+    public static List<Event> tuesdayEvents = new ArrayList<>();
+    public static List<Event> wednesdayEvents = new ArrayList<>();
+    public static List<Event> thursdayEvents = new ArrayList<>();
+    public static List<Event> fridayEvents = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,13 +43,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        this.setTitle("¡Bienvenido!");
+
         AssetManager assetManager = getAssets();
 
-        List<Event> mondayEvents = new ArrayList<>();
-        List<Event> tuesdayEvents = new ArrayList<>();
-        List<Event> wednesdayEvents = new ArrayList<>();
-        List<Event> thursdayEvents = new ArrayList<>();
-        List<Event> fridayEvents = new ArrayList<>();
+     if((mondayEvents != null && mondayEvents.isEmpty())
+             || (tuesdayEvents != null && tuesdayEvents.isEmpty())
+             || (wednesdayEvents != null && wednesdayEvents.isEmpty())
+             || (thursdayEvents != null && thursdayEvents.isEmpty())
+             || (fridayEvents != null && fridayEvents.isEmpty())){
 
         try {
             InputStream programme1 = assetManager.open("programme1.xlsx");
@@ -75,6 +81,8 @@ public class MainActivity extends AppCompatActivity {
                     String beginning = c.getString(1);
                     String ending = c.getString(2);
                     String title = c.getString(4);
+                    String speakers = c.getString(5);
+                    String description = c.getString(6);
 
                     SimpleDateFormat format = new SimpleDateFormat("H:m");
                     Date beginningHour = format.parse(beginning);
@@ -84,6 +92,8 @@ public class MainActivity extends AppCompatActivity {
                     event.setBeginningHour(beginningHour);
                     event.setEndingHour(endingHour);
                     event.setTitle(title);
+                    event.setSpeakers(speakers);
+                    event.setDescription(description);
 
                     if (date.contains("25")) {
                         mondayEvents.add(event);
@@ -141,46 +151,10 @@ public class MainActivity extends AppCompatActivity {
         } catch (Exception e) {
             Log.e("MainActivity: ", e.getMessage());
         }
+    }
+        calendarButton = (Button) findViewById(R.id.calendarButton);
 
-        fecha = (TextView) findViewById(R.id.fecha);
-        botonCalendario = (Button) findViewById(R.id.botonCalendario);
-        listView = (ListView) findViewById(R.id.list);
-
-        Intent incoming = getIntent();
-
-        String date = incoming.getStringExtra("fecha");
-        fecha.setText("");
-
-        ArrayList<String> list = new ArrayList<String>();
-        ArrayList<Event> eventsToShow;
-
-        if (date != null){
-            if (date.contains("25")) {
-                eventsToShow = new ArrayList<>(mondayEvents);
-            } else if (date.contains("26")) {
-                eventsToShow = new ArrayList<>(tuesdayEvents);
-            } else if (date.contains("27")) {
-                eventsToShow = new ArrayList<>(wednesdayEvents);
-            } else if (date.contains("28")) {
-                eventsToShow = new ArrayList<>(thursdayEvents);
-            } else {
-                eventsToShow = new ArrayList<>(fridayEvents);
-            }
-
-            for (Event event : eventsToShow) {
-                list.add(event.getBeginningHour().getHours() + ":" + event.getBeginningHour().getMinutes() + " - " + event.getEndingHour().getHours() + ":" + event.getEndingHour().getMinutes() + " | " + event.getTitle());
-            }
-
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                    android.R.layout.simple_list_item_1, android.R.id.text1,
-                    list.toArray(new String[list.size()]));
-            listView.setAdapter(adapter);
-        }
-
-
-
-
-        botonCalendario.setOnClickListener(new View.OnClickListener() {
+        calendarButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, CalendarActivity.class);

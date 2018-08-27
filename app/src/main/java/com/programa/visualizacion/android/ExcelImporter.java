@@ -45,7 +45,7 @@ public class ExcelImporter {
                     if (column != columnsLimit - 1) {
                         lineOfRow += value + "--";
                     } else {
-                        lineOfRow += value;
+                        lineOfRow += value.trim();
                     }
                 }
                 listOfRows.add(lineOfRow);
@@ -84,7 +84,7 @@ public class ExcelImporter {
                     if (column != columnsLimit - 1) {
                         lineOfRow += value + "--";
                     } else {
-                        lineOfRow += value;
+                        lineOfRow += value.trim();
                     }
                 }
                 listOfRows.add(lineOfRow);
@@ -123,7 +123,7 @@ public class ExcelImporter {
                     if (column != columnsLimit - 1) {
                         lineOfRow += value + "--";
                     } else {
-                        lineOfRow += value;
+                        lineOfRow += value.trim();
                         lineOfRow += "--" + mondaySheet.getSheetName();
                     }
                 }
@@ -147,7 +147,7 @@ public class ExcelImporter {
                     if (column != columnsLimit - 1) {
                         lineOfRow += value + "--";
                     } else {
-                        lineOfRow += value;
+                        lineOfRow += value.trim();
                         lineOfRow += "--" + tuesdaySheet.getSheetName();
                     }
                 }
@@ -187,7 +187,7 @@ public class ExcelImporter {
                     if (column != columnsLimit - 1) {
                         lineOfRow += value + "--";
                     } else {
-                        lineOfRow += value;
+                        lineOfRow += value.trim();
                         lineOfRow += "--" + wednesdaySheet.getSheetName();
                     }
                 }
@@ -212,7 +212,7 @@ public class ExcelImporter {
                     if (column != columnsLimit - 1) {
                         lineOfRow += value + "--";
                     } else {
-                        lineOfRow += value;
+                        lineOfRow += value.trim();
                         lineOfRow += "--" + thursdaySheet.getSheetName();
                     }
                 }
@@ -237,7 +237,7 @@ public class ExcelImporter {
                     if (column != columnsLimit - 1) {
                         lineOfRow += value + "--";
                     } else {
-                        lineOfRow += value;
+                        lineOfRow += value.trim();
                         lineOfRow += "--" + fridaySheet.getSheetName();
                     }
                 }

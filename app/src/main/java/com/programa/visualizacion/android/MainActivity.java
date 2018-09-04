@@ -5,11 +5,13 @@ import android.content.res.AssetManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -29,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
 
-    private Button calendarButton;
+    private boolean populatedLists = false;
 
     public static List<Event> mondayEvents = new ArrayList<>();
     public static List<Event> tuesdayEvents = new ArrayList<>();
@@ -43,15 +45,27 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        this.setTitle("¡Bienvenido!");
+        this.setTitle("");
+
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+                loadDatabase();
+
+                if(populatedLists){
+                    Intent startIntent = new Intent(MainActivity.this, StartActivity.class);
+                    startActivity(startIntent);
+                    finish();
+                }
+            }
+        }, 500);
+    }
+
+    private void loadDatabase(){
 
         AssetManager assetManager = getAssets();
-
-     if((mondayEvents != null && mondayEvents.isEmpty())
-             || (tuesdayEvents != null && tuesdayEvents.isEmpty())
-             || (wednesdayEvents != null && wednesdayEvents.isEmpty())
-             || (thursdayEvents != null && thursdayEvents.isEmpty())
-             || (fridayEvents != null && fridayEvents.isEmpty())){
 
         try {
             InputStream programme1 = assetManager.open("programme1.xlsx");
@@ -148,19 +162,12 @@ public class MainActivity extends AppCompatActivity {
             Collections.sort(thursdayEvents);
             Collections.sort(fridayEvents);
 
+            populatedLists = true;
         } catch (Exception e) {
             Log.e("MainActivity: ", e.getMessage());
         }
-    }
-        calendarButton = (Button) findViewById(R.id.calendarButton);
 
-        calendarButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, CalendarActivity.class);
-                startActivity(intent);
-            }
-        });
     }
-
 }
+
+

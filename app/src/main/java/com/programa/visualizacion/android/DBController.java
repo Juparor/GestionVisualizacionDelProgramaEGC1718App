@@ -53,15 +53,15 @@ public class DBController extends SQLiteOpenHelper {
 
             parts = row.split("--");
 
-            part0 = (counter < parts.length && parts[0] != null) ? parts[0] : "";
+            part0 = (counter < parts.length && parts[0] != null) ? parts[0].trim() : "";
             counter++;
-            part1 = (counter < parts.length && parts[1] != null) ? parts[1] : "";
+            part1 = (counter < parts.length && parts[1] != null) ? parts[1].trim() : "";
             counter++;
-            part2 = (counter < parts.length && parts[2] != null) ? parts[2] : "";
+            part2 = (counter < parts.length && parts[2] != null) ? parts[2].trim() : "";
             counter++;
-            part3 = (counter < parts.length && parts[3] != null) ? parts[3] : "";
+            part3 = (counter < parts.length && parts[3] != null) ? parts[3].trim() : "";
             counter++;
-            part4 = (counter < parts.length && parts[4] != null) ? parts[4] : "";
+            part4 = (counter < parts.length && parts[4] != null) ? parts[4].trim() : "";
             counter = 0;
 
             sqLiteDatabase.execSQL("INSERT INTO CHARLAS (SESSIONCODE, EVENTO, TITULO, PONENTES, RESUMEN) VALUES ("
@@ -76,15 +76,15 @@ public class DBController extends SQLiteOpenHelper {
 
             parts = row.split("--");
 
-            part0 = (counter < parts.length && parts[0] != null) ? parts[0] : "";
+            part0 = (counter < parts.length && parts[0] != null) ? parts[0].trim() : "";
             counter++;
-            part1 = (counter < parts.length && parts[1] != null) ? parts[1] : "";
+            part1 = (counter < parts.length && parts[1] != null) ? parts[1].trim() : "";
             counter++;
-            part2 = (counter < parts.length && parts[2] != null) ? parts[2] : "";
+            part2 = (counter < parts.length && parts[2] != null) ? parts[2].trim() : "";
             counter++;
-            part3 = (counter < parts.length && parts[3] != null) ? parts[3] : "";
+            part3 = (counter < parts.length && parts[3] != null) ? parts[3].trim() : "";
             counter++;
-            part4 = (counter < parts.length && parts[4] != null) ? parts[4] : "";
+            part4 = (counter < parts.length && parts[4] != null) ? parts[4].trim() : "";
             counter = 0;
 
             sqLiteDatabase.execSQL("INSERT INTO CHARLAS (SESSIONCODE, EVENTO, TITULO, PONENTES, RESUMEN) VALUES ("
@@ -99,15 +99,15 @@ public class DBController extends SQLiteOpenHelper {
 
             parts = row.split("--");
 
-            part0 = (counter < parts.length && parts[0] != null) ? parts[0] : "";
+            part0 = (counter < parts.length && parts[0] != null) ? parts[0].trim() : "";
             counter++;
-            part1 = (counter < parts.length && parts[1] != null) ? parts[1] : "";
+            part1 = (counter < parts.length && parts[1] != null) ? parts[1].trim() : "";
             counter++;
-            part2 = (counter < parts.length && parts[2] != null) ? parts[2] : "";
+            part2 = (counter < parts.length && parts[2] != null) ? parts[2].trim() : "";
             counter++;
-            part3 = (counter < parts.length && parts[3] != null) ? parts[3] : "";
+            part3 = (counter < parts.length && parts[3] != null) ? parts[3].trim() : "";
             counter++;
-            part4 = (counter < parts.length && parts[4] != null) ? parts[4] : "";
+            part4 = (counter < parts.length && parts[4] != null) ? parts[4].trim() : "";
             counter = 0;
 
 
@@ -163,15 +163,15 @@ public class DBController extends SQLiteOpenHelper {
 
             parts = row.split("--");
 
-            part0 = (counter < parts.length && parts[0] != null) ? parts[0] : "";
+            part0 = (counter < parts.length && parts[0] != null) ? parts[0].trim() : "";
             counter++;
-            part1 = (counter < parts.length && parts[1] != null) ? parts[1] : "";
+            part1 = (counter < parts.length && parts[1] != null) ? parts[1].trim() : "";
             counter++;
-            part2 = (counter < parts.length && parts[2] != null) ? parts[2] : "";
+            part2 = (counter < parts.length && parts[2] != null) ? parts[2].trim() : "";
             counter++;
-            part3 = (counter < parts.length && parts[3] != null) ? parts[3] : "";
+            part3 = (counter < parts.length && parts[3] != null) ? parts[3].trim() : "";
             counter++;
-            part4 = (counter < parts.length && parts[4] != null) ? parts[4] : "";
+            part4 = (counter < parts.length && parts[4] != null) ? parts[4].trim() : "";
             counter = 0;
 
 

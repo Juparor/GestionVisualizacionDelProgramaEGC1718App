@@ -1,64 +1,22 @@
 language: android
-sudo: required
-before_cache: "-rm -f $HOME/.gradle/caches/modules-2/modules-2.lock -rm -fr $HOME/.gradle/caches/*/plugin-resolution/"
-before_install:
-- openssl aes-256-cbc -K $encrypted_0134938ffec9_key -iv $encrypted_0134938ffec9_iv
-  -in keystore.jks.enc -out keystore.jks -d
-jdk:
-- oraclejdk8
-cache:
-  directories: "-$HOME/.gradle/caches/ -$HOME/.gradle/wrapper/"
-  env:
-    global:
-    - ANDROID_API=24
-    - EMULATOR_API=21
-    - ANDROID_BUILD_TOOLS=24.0.2
-    - ADB_INSTALL_TIMEOUT=5
-  android:
-    components:
-    - tools
+jdk: oraclejdk8
+sudo: false
+
+android:
+  components:
     - platform-tools
-    - build-tools-$ANDROID_BUILD_TOOLS
-    - android-$ANDROID_API
-    - android-$EMULATOR_API_LEVEL
-    - extra-google-m2repository
+    - tools
+    - build-tools-26.0.2
+    - android-26
+    - sys-img-armeabi-v7a-android-26
     - extra-android-m2repository
-    - addon-google_apis-google-19
-    - sys-img-armeabi-v7a-addon-google_apis-google-$ANDROID_API_LEVEL
-    - sys-img-armeabi-v7a-addon-google_apis-google-$EMULATOR_API_LEVEL
-    licenses:
-    - android-sdk-preview-license-.+
-    - android-sdk-license-.+
-    - google-gdk-license-.+
-  before_install:
-  - openssl aes-256-cbc -K $encrypted_0134938ffec9_key -iv $encrypted_0134938ffec9_iv
-    -in keystore.jks.enc -out keystore.jks -d
-  - chmod +x gradlew
-  - "./gradlew dependencies || true"
-  before_script:
-  - echo no | android create avd --force -n test -t android-21 --abi armeabi-v7a
+
+before_script:
+  # Create and start emulator
+  - echo no | android create avd --force -n test -t android-26 --abi armeabi-v7a
   - emulator -avd test -no-skin -no-audio -no-window &
   - android-wait-for-emulator
   - adb shell input keyevent 82 &
+
 script:
 - "./gradlew clean build connectedCheck -PdisablePreDex --stacktrace"
-before_deploy:
-- cp $TRAVIS_BUILD_DIR/.keystore $HOME
-- cd app/build/outputs/apk/
-- jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore $HOME/keystore.jks
-  -storepass $storepass -keypass $keypass app-release-unsigned.apk appKey
-- jarsigner -verify app-release-unsigned.apk
-- "${ANDROID_HOME}/build-tools/24.0.2/zipalign -v 4 app-release-unsigned.apk Visualizacion.apk"
-deploy:
-  provider: releases
-  file: Visualizacion.apk
-  skip_cleanup: true
-  on:
-    repo: Juparor/GestionVisualizacionDelProgramaEGC1718App
-    tags: true
-    jdk: oraclejdk8
-env:
-  global:
-  - secure: X4nPp10eNkHyY0bnrCTUjJSN1hsR7hL+bknahIAyznzQ6mxJpbtgSMcGgm0sm6+fhl5mLQpP9jN4ymE0A9ZnbUZeDD+12GWN9qr5qsZEKvojeVTQUzdMaXcM8dE2I1RKZhg5mpfayATydk4OZ3HTOikWttrNZEyR1ak+jEGcCpHc76UVGHkQttIJ0/CysGH5GWJCWYv9c1MNO5fDy69GSQPMdslV/rpvlXL6sruVmISCA8VHWHae730ZcyguwLSltdkvRfWGkKuxITVnORfcS27nkiibXvp7hrd4T9FbjG5TQiUKB41Qm0jgykyOlyVrZw1IT5a81v8I5U7DyD/Doiw2DndOPILftMtohaFaq8ROMHjiEHQrRD2IvOb7MnZ0k7y5TJPHkfMVsdE4RhJhP7euCUjyGfoTaSnYYIIA4DAAJcg2z7HITmcz0E7WXXAAHYDc9V7isaLayhZhgLbz2peVZJ83cH64vL9UF+wGvB4eKjyuHKqFAF3e7/nlJ/tOtjxzAGM2wZZbxJvu2+VfQ6YCyVXBT63TlLDi/p6WnfuQgHuUod1Wxb9lOcFFiaqc78Rz/MbuLRsBP7ZN8NMA9V5OOgaBOpjA54z/1KuZLVCC6wFUU82TM6Xcnrrp7tZAkvGJ7J0oz5RzmkzImrMoD8w0qS7yD1rbTosWYgGEp2I=
-  - secure: UXwbifcr9PPM9OPqxL2ruWfA9WXQD6/b1MCnzoIBdC3bgk9gKNoMFrZuTLwYKopdNMnxvb02s9/Qmx7zD87LxN46z1IOQW/P/smhjq6cW4hFOL91PSLpLxEOuDlcAY3FoDBTOuMopOTCBkzpYZ4xXC3+sa9JglB1uGIZIIzkbde8fQ10ti+59pfhr0nkv901XhIQVF5vtNo3PbUrav6Ry2N00g13UZZjjqIpAMRstn7/4WgjQilZ2el0BN0pcC537rU1gS0zebbkhmazP9soE0HYuuJTiIwvhurjN4d5ZTwKsnkuTnkVbTUGMhskGx5/RT8XZ/6+QRiqxl/ZSYh7ijV4R6vT0MI4QkxuatqjVv8cwXm/hQX4z/hlQb+rhTbVYepf8u/dENjqKEi8MUFCEpOCakn05CjasnOFLnBLDKyNK29hZ0zGdqDRBpmO/GIA/g5ijKq8LaUA9ALCmXLkOiGVM+8m9CHuVFvAqd5dG84tDsTjpJeP1Lyxf4DDeFInvRfk+pZ+M1QmVKunQk5zDPT/bmHByFMPrVADopnjNMQoRSanNkdlJdNSq1wvMN4MIiNCGK6GFObYGJH5pVMng7tGV5dOjjdwwAIlBr8KBvSqppdvoj/bq4xe1KZKbj/NBZhxBhEIwvWAmDqzDegrvg3Qulen75nimxRSTTKO6aI=
-  api_key: secure:"fdon+dPtaaW5Lw+naYtWzM3uN1xx54ITunbFPqJcrNldsdHZFBG/YBeT+nx4J7HCUmhcJQoSGddBf+2cWx4zhMEfN7xxW53DXjCQdVkzI3DFCIJpBZPJJ9DAC/n6MP2pqU1RX4UmLsW+ne9pmbJMAZtB3cyMgoRWlUxHbnTcoeBmv33uNy4TkN3Es++lsJA/oaSgWdL+G7Q66TwBxGq3DsOUUTlKXm9Zcr7me317aMuFsx7txr6PaW2xuFkvhOiCNqGv7KKWG7TDB3fyQvNuTAQfvKdF+unoLfi16o1lqUNqwjlv2FU4TcFgUwC2JGTsNzHBgQyKQG5ZnB+YQfyuWqUMC0w5e0hYT2//gfTkbeY7ktOd4sXI6VS21zeovTS4exNoSBEmtttU0JTN8ywIz7dmkVIMV0FqohocPK/21UevLbmugacof4QakzgBt1NpnQbS20mWv/IAhYfZg3lE6PAGH0qDQzcw45FydBz5VTAYtOH2NRz9KOWwaHjgphXzxuAg2kJ2HA6eTDRZR9hGgYjidYpYRnmyGLYXkfdtOcD/AihM91PGEcMy+EdumzoYZvrTe5LaQGIVPiCpwTTMhl3La1ffmifvEJTWEKNW54z4OwKWlCnIeTPrAuB03153Xa6HXvW1Dali41d91RtwxtUZvxkYH1EsghIsc0Iyx2U="

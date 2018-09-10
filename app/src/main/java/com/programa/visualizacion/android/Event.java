@@ -11,6 +11,7 @@ import java.util.Date;
 
 public class Event implements Comparable, Serializable {
 
+    private String code;
     private Integer day;
     private Date beginningHour;
     private Date endingHour;
@@ -70,6 +71,12 @@ public class Event implements Comparable, Serializable {
         this.speakers = speakers;
     }
 
+    public String getCode(){return code; }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
     public boolean equals(Object obj) {
 
         if (obj instanceof Event) {
@@ -120,6 +127,7 @@ public class Event implements Comparable, Serializable {
                 ", title='" + title + '\'' +
                 ", speakers='" + speakers + '\'' +
                 ", description='" + description + '\'' +
+                ", code='" + code + '\'' +
                 '}';
     }
 }

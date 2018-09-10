@@ -8,12 +8,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.TextView;
+
+import com.programa.visualizacion.android.database.DBController;
+import com.programa.visualizacion.android.ws.VisualizacionWS;
 
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
@@ -22,17 +19,20 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-import static com.programa.visualizacion.android.ExcelImporter.importExcelDataFileOne;
-import static com.programa.visualizacion.android.ExcelImporter.importExcelDataFileOneSchedule;
-import static com.programa.visualizacion.android.ExcelImporter.importExcelDataFileTwo;
-import static com.programa.visualizacion.android.ExcelImporter.importExcelDataFileTwoSchedule;
+import static com.programa.visualizacion.android.database.ExcelImporter.importExcelDataFileOne;
+import static com.programa.visualizacion.android.database.ExcelImporter.importExcelDataFileOneSchedule;
+import static com.programa.visualizacion.android.database.ExcelImporter.importExcelDataFileTwo;
+import static com.programa.visualizacion.android.database.ExcelImporter.importExcelDataFileTwoSchedule;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String TAG = "MainActivity";
-
+    public static boolean finishedWS = false;
     private boolean populatedLists = false;
+    private boolean eventos;
+    private boolean charlas;
+    private boolean useWS = true;
 
+    public static List<Event> allEvents = new ArrayList<>();
     public static List<Event> mondayEvents = new ArrayList<>();
     public static List<Event> tuesdayEvents = new ArrayList<>();
     public static List<Event> wednesdayEvents = new ArrayList<>();
@@ -47,20 +47,66 @@ public class MainActivity extends AppCompatActivity {
 
         this.setTitle("");
 
-
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
+                try {
 
-                loadDatabase();
-
-                if(populatedLists){
-                    Intent startIntent = new Intent(MainActivity.this, StartActivity.class);
-                    startActivity(startIntent);
-                    finish();
+                    if (useWS){
+                        eventos = VisualizacionWS.getEventos();
+                        charlas = VisualizacionWS.getCharlas();
+                    } else {
+                        loadDatabase();
+                    }
+                } catch (Exception e){
+                    loadDatabase();
                 }
+
+                if (!populatedLists && (!eventos || !charlas)){
+                    loadDatabase();
+                }
+                waitForLists();
+
             }
         }, 500);
+    }
+
+    private void waitForLists(){
+
+        if (!finishedWS && !populatedLists){
+            waitForLists();
+        } else if (finishedWS && !populatedLists){
+            for(Event e: allEvents){
+                if (e.getDay() == 25){
+                    mondayEvents.add(e);
+                } else if (e.getDay() == 26){
+                    tuesdayEvents.add(e);
+                } else if (e.getDay() == 27){
+                    wednesdayEvents.add(e);
+                } else if (e.getDay() == 28){
+                    thursdayEvents.add(e);
+                } else if (e.getDay() == 29){
+                    fridayEvents.add(e);
+                }
+            }
+            populatedLists = true;
+        }
+
+        if(populatedLists){
+
+            Collections.sort(mondayEvents);
+            Collections.sort(tuesdayEvents);
+            Collections.sort(wednesdayEvents);
+            Collections.sort(thursdayEvents);
+            Collections.sort(fridayEvents);
+
+            Intent startIntent = new Intent(MainActivity.this, StartActivity.class);
+            startActivity(startIntent);
+            finish();
+        } else {
+            waitForLists();
+        }
+
     }
 
     private void loadDatabase(){
@@ -155,13 +201,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 } while (c.moveToNext());
             }
-
-            Collections.sort(mondayEvents);
-            Collections.sort(tuesdayEvents);
-            Collections.sort(wednesdayEvents);
-            Collections.sort(thursdayEvents);
-            Collections.sort(fridayEvents);
-
             populatedLists = true;
         } catch (Exception e) {
             Log.e("MainActivity: ", e.getMessage());

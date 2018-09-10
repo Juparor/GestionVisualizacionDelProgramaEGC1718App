@@ -1,4 +1,4 @@
-package com.programa.visualizacion.android;
+package com.programa.visualizacion.android.database;
 
 
 import android.content.Context;

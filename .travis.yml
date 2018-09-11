@@ -1,3 +1,5 @@
+sudo: required
+
 language: android
 jdk: oraclejdk7
 sudo: false
@@ -32,4 +34,4 @@ before_script:
   - adb shell input keyevent 82 &
 
 script:
-  - chmod +x ./gradlew build connectedCheck
+  - ./gradlew clean test build

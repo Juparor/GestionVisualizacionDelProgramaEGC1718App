@@ -1,5 +1,6 @@
 package com.programa.visualizacion.android;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.database.Cursor;

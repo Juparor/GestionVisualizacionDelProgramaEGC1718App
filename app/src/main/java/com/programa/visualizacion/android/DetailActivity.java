@@ -40,7 +40,7 @@ public class DetailActivity extends AppCompatActivity {
         eventSpeakersDisplay.setText(speakers);
         eventDescriptionDisplay.setText(description);
 
-        this.setTitle(event.getTitle());
+        this.setTitle(title);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

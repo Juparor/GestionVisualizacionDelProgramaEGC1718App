@@ -22,22 +22,22 @@ env:
  - secure: "JaSWIU45t91/8UusGB8aKk5SNDCiplf/2wyAh7HpLkS7QKt2ibIRkD7E6gqMzLgD0RiNvpwsEBalzU581SlpxdDjoN/KBEJ+k6OBO0rQ2BisfjRIa0UWe/kVRauTeWrHkl4xpoCipSe3xLOXZW7CITiMWwCDdJmpIhrEhubWzHooO70Mf5mbmxd3yS5L81Y4u1c0aAaXY0/LzT57kBxrzYBe+331X1YCwjINH0b+Ala10KzqgDNQj061eiLo7fHDktI4ws68Pn3bYT12RKCJudFYMKbsyJmd6kP2EN2gfpXyzAuj0iB1dsIRaFIwRoiH75LfBMr6koxAzHVtAX/4zO7/DR7lMKJC36Y7Gt1FPZ/EZxNm/3/126AKGCiFaH7CMqID0SA9Hi59+vIXBUCkSvHtF0GM8tHnp1Puq2Zki7zZP00UYu8kN/YwNzXi8P7yM6mSR8QjYfGOXdXbuindkwI+4RX/WUmOGWg9lZgW4zRm0TJIwceBU6kbCdexpN8wcsBdK6BHhWCp0D6KbBA+nzX7TjUjUoaFVz70ebiT9NMwjxoU6Pi2KzCboWM/xr7P0L/mOnMRHCC0jhX1LjYj2asBGv+IqdUrFMF89UP+FlL4CDAkbHjQDCY9ftPUDXbQZHf/q0kyQACtKleVsUk6p9rVwhpNagGZrudQh1b+IEc="
  - secure: "UIfO/12otG8uTiHFZuTj2pajLPicKZAylOd6muWx+9q0aQN4NOfpZGWdcU7QP7ZvrQuB2DfNFt430st+Ovqw0Sv/gQBrdUlWMw1loUGjSmkW3D5S5lnXHdY50yOomjT5dtfOlZCqpkWDZQOB7C3vR9Ii1qjqaJO/nxg5D64LhcSPgQgtEv0wfygJW7NaQ7bbqsM3IsZLO5e22sepbqU/D213Q0VG2foldksloApHT8LK16EVrm534czuyLk2aXS9cnqaoO5cnAE5pylaaxjhqfljCW24qbAkWwaK9lwrGHSJD/yAnbdFnRRo6jVw1WOtu5qwQXrt5WqPi4kv5Da/+jybDNt3PxCGpvUD826tXjgWg38O5WXxbS0OPSYH4v5C46dTVGwjSPcT4zT5bYrGT6PeOm8djepCnhr9HRzlmoa57gqO3N8LR1g4vd315wvJg9kMnBUE6IXjZQsQsg5rzudRef+DQWElQEPwNKGbti5iJ2G8iGr/hX6AzGISlqkk+dzo474HoT7uU594xQDvH7+Hvx36YazaNwRixbEzL3Btk7GEoySXmFKoNerj2m7j6AHBhtfUS40S26yWAMH40i7ZSQGV7GJvN5vHZ0/K6r3E2q13S2yNfXkekz93M3TQeEshU1yGahRefkswxEejyeFME2Q7sxncCeHemxZqav8="
 
-  android:
-  components:
-	  - tools
-	  - platform-tools
-	  - tools
-	  - build-tools-26.0.2
-	  - android-26
-	  - android-21
-	  - addon-google_apis-google-26
-	  - addon-google_apis-google-21
-	  - extra-google-google_play_services
-	  - extra-android-support
-	  - extra-google-m2repository
-	  - extra-android-m2repository
-	  - sys-img-armeabi-v7a-google_apis-26
-	  - sys-img-armeabi-v7a-google_apis-21
+android:
+ components:
+  - tools
+  - platform-tools
+  - tools
+  - build-tools-26.0.2
+  - android-26
+  - android-21
+  - addon-google_apis-google-26
+  - addon-google_apis-google-21
+  - extra-google-google_play_services
+  - extra-android-support
+  - extra-google-m2repository
+  - extra-android-m2repository
+  - sys-img-armeabi-v7a-google_apis-26
+  - sys-img-armeabi-v7a-google_apis-21
 
 script:
 	- "./gradlew clean test build"
